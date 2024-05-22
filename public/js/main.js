@@ -33,7 +33,7 @@
 (function ($) {
   // Use Strict
   "use strict";
-  try {
+  try { 
     var progressbarSimple = $('.js-progressbar-simple');
     progressbarSimple.each(function () {
       var that = $(this);

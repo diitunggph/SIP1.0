@@ -451,7 +451,7 @@ app.get('/api/v1/benefitChanges', async (req, res) => {
         NotificationContent,
         NotificationTimestamp
       FROM BenefitChangeNotifications
-      JOIN Benefit_Plans bp_new ON NewBenefitPlanID = bp_new.Benefit_Plan_ID
+      INNER JOIN Benefit_Plans bp_new ON NewBenefitPlanID = bp_new.Benefit_Plans_ID
       ORDER BY NotificationTimestamp DESC
     `);
 
@@ -469,3 +469,4 @@ app.get('/api/v1/benefitChanges', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+

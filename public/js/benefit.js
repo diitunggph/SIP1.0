@@ -1,22 +1,10 @@
-// Function to create a new notification element
-function createNotification(title, content) {
-    const notificationDiv = document.createElement('div');
-    notificationDiv.className = 'notification';
-    const titleElement = document.createElement('h4');
-    titleElement.textContent = title;
-    const contentElement = document.createElement('p');
-    contentElement.textContent = content;
-    notificationDiv.appendChild(titleElement);
-    notificationDiv.appendChild(contentElement);
-    return notificationDiv;
-}
-
+// Function to fetch benefit changes data from API endpoint and display notifications
 function loadNotifications() {
     fetch('http://localhost:5001/api/v1/benefitChanges')
       .then(response => response.json())
       .then(data => {
-        const notificationForm = document.getElementById('notification-container');
-        notificationForm.innerHTML = ''; // Xóa các thông báo cũ
+        const notificationContainer = document.querySelector('.container .notification-container');
+        notificationContainer.innerHTML = ''; // Xóa các thông báo cũ
   
         data.forEach(notification => {
           const div = document.createElement('div');
@@ -24,12 +12,13 @@ function loadNotifications() {
           div.innerHTML = `
             <h4>${notification.title}</h4>
             <p>${notification.content}</p>
+            <small>${new Date(notification.timestamp).toLocaleString()}</small>
           `;
-          notificationForm.appendChild(div);
+          notificationContainer.appendChild(div);
         });
       })
       .catch(error => console.error('Error loading notifications:', error));
   }
   
-  // Gọi hàm loadNotifications() khi trang được tải
-  window.addEventListener('load', loadNotifications);
+  document.addEventListener('DOMContentLoaded', loadNotifications);
+
